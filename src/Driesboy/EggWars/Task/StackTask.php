@@ -9,8 +9,7 @@ use Driesboy\Eggwars\EggWars;
 
 class StackTask extends PluginTask{
 
-//Thx to @thebigsmileXD
-// original plugin: https://github.com/thebigsmileXD/ItemStacks
+//Thx to @XenialDan
 
 	/** @var Loader $plugin */
 	private $plugin;
