@@ -1,7 +1,6 @@
 ---
 StartTime: 61
 EndTime: 16
-Reduce-Lagg: false
 BuildBlocks:
 - 24
 - 20
