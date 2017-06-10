@@ -117,6 +117,7 @@ class EW extends Command{
     }
   }
 
+
   public function CreateShop($x, $y, $z, $yaw, $pitch, Level $World, $pro){
     $nbt = new CompoundTag;
     $nbt->Pos = new ListTag("Pos", [
@@ -132,13 +133,10 @@ class EW extends Command{
       new DoubleTag("", 0),
       new DoubleTag("", 0)
     ]);
-    $nbt->Profession = new ByteTag("Profession", $pro);
     $nbt->Health = new ShortTag("Health", 10);
     $nbt->CustomName = new StringTag("CustomName", "§6EggWars Shop");
-    $nbt->CustomNameVisible = new ByteTag("CustomNameVisible", 1);
     $World->loadChunk($x >> 4, $z >> 4);
     $koylu = Entity::createEntity("Villager", $World, $nbt);
-    $koylu->setProfession($pro);
     $koylu->spawnToAll();
   }
 }
