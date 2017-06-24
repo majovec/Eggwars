@@ -119,20 +119,22 @@ class EW extends Command{
 
 
   public function CreateShop($x, $y, $z, $yaw, $pitch, Level $World, $pro){
-    $nbt = new CompoundTag;
-    $nbt->Pos = new ListTag("Pos", [
-      new DoubleTag("", $x),
-      new DoubleTag("", $y),
-      new DoubleTag("", $z)
-    ]);
-    $nbt->Rotation = new ListTag("Rotation", [
-      new DoubleTag("", $yaw),
-      new DoubleTag("", $pitch)
-    ]);
-    $nbt->Motion = new ListTag("Motion", [
-      new DoubleTag("", 0),
-      new DoubleTag("", 0)
-    ]);
+    	$nbt = new CompoundTag("", [
+            "Pos" => new ListTag("Pos", [
+                new DoubleTag("", $x),
+                new DoubleTag("", $y),
+                new DoubleTag("", $z)
+            ]),
+            "Motion" => new ListTag("Motion", [
+                new DoubleTag("", 0),
+                new DoubleTag("", 0),
+                new DoubleTag("", 0)
+            ]),
+            "Rotation" => new ListTag("Rotation", [
+                new FloatTag("", $yaw),
+                new FloatTag("", $pitch)
+            ]),
+        ]);
     $nbt->Health = new ShortTag("Health", 10);
     $nbt->CustomName = new StringTag("CustomName", "§6EggWars Shop");
     $World->loadChunk($x >> 4, $z >> 4);
