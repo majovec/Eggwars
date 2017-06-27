@@ -32,4 +32,4 @@ Hi, the installation of the plugin I'm telling you now.
 #### Third Line: Broken
 
 ## EGG WARS TEAM EGG SETUP
-### Place the Team Color Wool and put the Egg on top.
+### Place the Team Color Wool and put the Dragon Egg on top.
