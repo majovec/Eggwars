@@ -14,7 +14,7 @@ class Hub extends Command{
     parent::__construct("hub", "Hub Command");
     $this->setAliases(array("lobby", "spawn"));
   }
-  
+
   public function execute(CommandSender $g, $label, array $args){
     $main = EggWars::getInstance();
     if($main->IsInArena($g->getName())){
