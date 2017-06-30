@@ -19,3 +19,25 @@ If you have lagg drops use [this plugin](https://github.com/thebigsmileXD/ItemSt
 
 ## How to setup the team egg
 ### Place the Dragon Egg on the top of the team color wool.
+
+## How to create a arena
+### /ew create <arena> <teams> <PlayersPerTeam>
+
+## How to set a team spawn
+### /ew set <arena> <teamcolor>
+
+## All the colors
+### - ORANGE
+### - PURPLE
+### - LIGHT-BLUE
+### - YELLOW
+### - GREEN
+### - GRAY
+### - BLUE
+### - RED
+
+## How to set the waitinglobby
+### /ew lobby <arena>
+
+## How to save the map
+### /ew save <arena>
