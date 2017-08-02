@@ -2,8 +2,8 @@
 
 namespace Driesboy\EggWars;
 
-use Driesboy\EggWars\Command\Hub;
-use Driesboy\EggWars\Command\EW;
+use Driesboy\EggWars\Commands\HubCommand;
+use Driesboy\EggWars\Commands\EggWarsCommand;
 use Driesboy\EggWars\Task\Game;
 use Driesboy\EggWars\Task\SignManager;
 use pocketmine\item\Item;
@@ -52,8 +52,8 @@ class EggWars extends PluginBase{
     Server::getInstance()->getPluginManager()->registerEvents(new EventListener(), $this);
     Server::getInstance()->getScheduler()->scheduleRepeatingTask(new SignManager($this), 20);
     Server::getInstance()->getScheduler()->scheduleRepeatingTask(new Game($this), 20);
-    Server::getInstance()->getCommandMap()->register("ew", new EW());
-    Server::getInstance()->getCommandMap()->register("hub", new Hub());
+    Server::getInstance()->getCommandMap()->register("ew", new EggWarsCommand());
+    Server::getInstance()->getCommandMap()->register("hub", new HubCommand());
   }
 
   public function PrepareArenas(){

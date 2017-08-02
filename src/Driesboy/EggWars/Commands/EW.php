@@ -1,6 +1,6 @@
 <?php
 
-namespace Driesboy\EggWars\Command;
+namespace Driesboy\EggWars\Commands;
 
 use Driesboy\EggWars\EggWars;
 use pocketmine\command\Command;
@@ -18,13 +18,13 @@ use pocketmine\Player;
 use pocketmine\Server;
 use pocketmine\utils\Config;
 
-class EW extends Command{
+class EggWarsCommand extends Command{
 
   public function __construct(){
-    parent::__construct("ew", "EggWars by Driesboy & Enes5519");
+    parent::__construct("ew", "EggWars by Driesboy");
   }
 
-  public function execute(CommandSender $g, string $label, array $args): bool{
+  public function execute(CommandSender $g, string $label, array $args){
     $main = EggWars::getInstance();
     if($g->hasPermission("eggwars.command") && $g instanceof Player){
       if(!empty($args[0])){
@@ -114,7 +114,7 @@ class EW extends Command{
         $g->sendMessage("§8» §c/ew Help §7EggWars Help Commando's");
       }
     }else{
-      $g->sendMessage("§8» §6EggWars Plugin By §eDriesboy & Enes5519!");
+      $g->sendMessage("§8» §6EggWars Plugin By §eDriesboy!");
     }
   }
 
