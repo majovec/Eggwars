@@ -14,13 +14,13 @@ class HubCommand extends Command{
     $this->setAliases(array("lobby", "spawn", "leave"));
   }
 
-  public function execute(CommandSender $g, string $label, array $args){
+  public function execute(CommandSender $sender, string $label, array $args){
     $main = EggWars::getInstance();
-    if($main->IsInArena($g->getName())){
-      $arena = $main->IsInArena($g->getName());
-      $main->RemoveArenaPlayer($arena, $g->getName());
-      $g->teleport(Server::getInstance()->getDefaultLevel()->getSafeSpawn());
-      $g->sendMessage("§8» §aYou are teleported to the Lobby");
+    if($main->IsInArena($sender->getName())){
+      $arena = $main->IsInArena($sender->getName());
+      $main->RemoveArenaPlayer($arena, $sender->getName());
+      $sender->teleport(Server::getInstance()->getDefaultLevel()->getSafeSpawn());
+      $sender->sendMessage("§8» §aYou are teleported to the Lobby");
     }
   }
 }

@@ -24,97 +24,97 @@ class EggWarsCommand extends Command{
     parent::__construct("ew", "EggWars by Driesboy");
   }
 
-  public function execute(CommandSender $g, string $label, array $args){
+  public function execute(CommandSender $sender, string $label, array $args){
     $main = EggWars::getInstance();
-    if($g->hasPermission("eggwars.command") && $g instanceof Player){
+    if($sender->hasPermission("eggwars.command") && $sender instanceof Player){
       if(!empty($args[0])){
         if($args[0] === "help"){
-          $g->sendMessage("§6----- §fEggwars Help Page §6-----");
-          $g->sendMessage("§8» §e/ew create".' <arena> <teams> <PlayersPerTeam> '."§6Create an Arena!");
-          $g->sendMessage("§8» §e/ew set".' <arena> <team> '."§6Set the TeamSpawn!");
-          $g->sendMessage("§8» §e/ew lobby".' <arena> '."§6Set the WaitingLobby!");
-          $g->sendMessage("§8» §e/ew save".' <arena> '."§6Save the map!");
-          $g->sendMessage("§8» §e/ew shop "."§6Spawn a Villager");
+          $sender->sendMessage("§6----- §fEggwars Help Page §6-----");
+          $sender->sendMessage("§8» §e/ew create".' <arena> <teams> <PlayersPerTeam> '."§6Create an Arena!");
+          $sender->sendMessage("§8» §e/ew set".' <arena> <team> '."§6Set the TeamSpawn!");
+          $sender->sendMessage("§8» §e/ew lobby".' <arena> '."§6Set the WaitingLobby!");
+          $sender->sendMessage("§8» §e/ew save".' <arena> '."§6Save the map!");
+          $sender->sendMessage("§8» §e/ew shop "."§6Spawn a Villager");
         }elseif ($args[0] === "create"){
           if(!empty($args[1])){
             if(!empty($args[2]) && is_numeric($args[2])){
               if(!empty($args[3]) && is_numeric($args[3])){
-                $main->ArenaCreate($args[1], $args[2], $args[3], $g);
+                $main->ArenaCreate($args[1], $args[2], $args[3], $sender);
               }else{
-                $g->sendMessage("§8» §c/ew create ".'<arena> <team> <PlayersPerTeam>');
+                $sender->sendMessage("§8» §c/ew create ".'<arena> <team> <PlayersPerTeam>');
               }
             }else{
-              $g->sendMessage("§8» §c/ew create ".'<arena> <team> <PlayersPerTeam>');
+              $sender->sendMessage("§8» §c/ew create ".'<arena> <team> <PlayersPerTeam>');
             }
           }else{
-            $g->sendMessage("§8» §c/ew create ".'<arena> <team> <PlayersPerTeam>');
+            $sender->sendMessage("§8» §c/ew create ".'<arena> <team> <PlayersPerTeam>');
           }
         }elseif ($args[0] === "set"){
           if(!empty($args[1])){
             if(!empty($args[2])){
-              $main->ArenaSet($args[1], $args[2], $g);
+              $main->ArenaSet($args[1], $args[2], $sender);
             }else{
-              $g->sendMessage("§8» §c/ew set ".'<arena> <team>');
+              $sender->sendMessage("§8» §c/ew set ".'<arena> <team>');
             }
           }else{
-            $g->sendMessage("§8» §c/ew set ".'<arena> <team>');
+            $sender->sendMessage("§8» §c/ew set ".'<arena> <team>');
           }
         }elseif ($args[0] === "lobby"){
           if(!empty($args[1])){
             if($main->ArenaControl($args[1])){
               $ac = new Config($main->getDataFolder()."Arenas/$args[1].yml", Config::YAML);
-              $ac->setNested("Lobby.X", $g->getFloorX());
-              $ac->setNested("Lobby.Y", $g->getFloorY());
-              $ac->setNested("Lobby.Z", $g->getFloorZ());
-              $ac->setNested("Lobby.Yaw", $g->getYaw());
-              $ac->setNested("Lobby.Pitch", $g->getPitch());
-              $ac->setNested("Lobby.World", $g->getLevel()->getFolderName());
+              $ac->setNested("Lobby.X", $sender->getFloorX());
+              $ac->setNested("Lobby.Y", $sender->getFloorY());
+              $ac->setNested("Lobby.Z", $sender->getFloorZ());
+              $ac->setNested("Lobby.Yaw", $sender->getYaw());
+              $ac->setNested("Lobby.Pitch", $sender->getPitch());
+              $ac->setNested("Lobby.World", $sender->getLevel()->getFolderName());
               $ac->save();
-              $g->sendMessage("§8» §a$args[1] 's WaitingLobby has been created succesfull");
+              $sender->sendMessage("§8» §a$args[1] 's WaitingLobby has been created succesfull");
             }else{
-              $g->sendMessage("§8» §c$args[1] is not an arena");
+              $sender->sendMessage("§8» §c$args[1] is not an arena");
             }
           }else{
-            $g->sendMessage("§8» §c/ew Lobby ".'<arena>');
+            $sender->sendMessage("§8» §c/ew Lobby ".'<arena>');
           }
         }elseif($args[0] === "save"){
           if(!empty($args[1])){
             if($main->ArenaControl($args[1])) {
-              if ($g->getLevel() != Server::getInstance()->getDefaultLevel()) {
+              if ($sender->getLevel() != Server::getInstance()->getDefaultLevel()) {
                 $ac = new Config($main->getDataFolder()."Arenas/$args[1].yml", Config::YAML);
-                $ac->set("World", $g->getLevel()->getFolderName());
+                $ac->set("World", $sender->getLevel()->getFolderName());
                 $ac->save();
-                $main->copy(Server::getInstance()->getDataPath()."worlds/".$g->getLevel()->getFolderName(), $main->getDataFolder()."Back-Up/".$g->getLevel()->getFolderName());
-                $g->sendMessage("§8» §a$args[1] has been saved");
+                $main->copy(Server::getInstance()->getDataPath()."worlds/".$sender->getLevel()->getFolderName(), $main->getDataFolder()."Back-Up/".$sender->getLevel()->getFolderName());
+                $sender->sendMessage("§8» §a$args[1] has been saved");
               } else {
-                $g->sendMessage("§8» §cYour map cannot be the ServerSpawn");
+                $sender->sendMessage("§8» §cYour map cannot be the ServerSpawn");
               }
             }else{
-              $g->sendMessage("§8» §c$args[1] is not an arena");
+              $sender->sendMessage("§8» §c$args[1] is not an arena");
             }
           }else{
-            $g->sendMessage("§8» §c/ew save ".'<arena>');
+            $sender->sendMessage("§8» §c/ew save ".'<arena>');
           }
         }elseif($args[0] === "shop"){
-          $this->CreateShop($g->x, $g->y, $g->z, $g->yaw, $g->pitch, $g->getLevel(), 1);
+          $this->CreateShop($sender->x, $sender->y, $sender->z, $sender->yaw, $sender->pitch, $sender->getLevel(), 1);
         }elseif($args[0] === "start"){
-          if($main->IsInArena($g->getName())){
-            $arena = $main->IsInArena($g->getName());
+          if($main->IsInArena($sender->getName())){
+            $arena = $main->IsInArena($sender->getName());
             $ac = new Config($main->getDataFolder()."Arenas/$arena.yml", Config::YAML);
             if($ac->get("Status") === "Lobby"){
               $ac->set("StartTime", 6);
               $ac->save();
-              $g->sendMessage("§bStarting the game ...");
+              $sender->sendMessage("§bStarting the game ...");
             }
           }else{
-            $g->sendMessage("§cYou are not in a game!");
+            $sender->sendMessage("§cYou are not in a game!");
           }
         }
       }else{
-        $g->sendMessage("§8» §c/ew Help §7EggWars Help Commando's");
+        $sender->sendMessage("§8» §c/ew Help §7EggWars Help Commando's");
       }
     }else{
-      $g->sendMessage("§8» §6EggWars Plugin By §eDriesboy!");
+      $sender->sendMessage("§8» §6EggWars Plugin By §eDriesboy!");
     }
   }
 
