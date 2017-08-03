@@ -406,6 +406,7 @@ class EggWars extends PluginBase{
       $item->setCustomName("§r§8» ".$color.$at."§8 «");
       $p->getInventory()->addItem($item);
     }
+    $p->getInventory()->sendContents($p);
   }
 
   public function EggSkin($arena, $team){

@@ -440,6 +440,7 @@ class EventListener implements Listener{
               $main->ArenaMessage($arena, $message);
             }
             $p->getInventory()->clearAll();
+            $p->getInventory()->sendContents($p);
           }
         }
       }
