@@ -68,18 +68,18 @@ class EggWars extends PluginBase{
     $ac = new Config($this->getDataFolder()."Arenas/$arena.yml", Config::YAML);
     $players = $ac->get("Players");
     $p = array();
-    foreach ($players as $Is) {
-      $go = Server::getInstance()->getPlayer($Is);
+    foreach ($players as $player) {
+      $go = Server::getInstance()->getPlayer($player);
       if($go instanceof Player){
-        $p[] = $Is;
+        $p[] = $player;
       }else{
-        $this->RemoveArenaPlayer($arena, $Is, 1);
+        $this->RemoveArenaPlayer($arena, $player, 1);
       }
     }
     return $p;
   }
 
-  public function RemoveArenaPlayer($arena, $player, $pa = 0){
+  public function RemoveArenaPlayer($arena, $player, $oa = 0){
     $ac = new Config($this->getDataFolder()."Arenas/$arena.yml", Config::YAML);
     $players = $ac->get("Players");
     $status = $ac->get("Status");
@@ -88,7 +88,7 @@ class EggWars extends PluginBase{
     }
     if(@in_array($player, $players)){
       $p = Server::getInstance()->getPlayer($player);
-      if($p instanceof Player && $pa != 1){
+      if($p instanceof Player && $oa != 1){
         $p->setNameTag($p->getName());
         $p->getInventory()->clearAll();
         $p->setHealth(20);
@@ -349,8 +349,8 @@ class EggWars extends PluginBase{
 
   public function ArenaMessage($arena, $message){
     $players = $this->ArenaPlayer($arena);
-    foreach($players as $Is){
-      $p = $this->getServer()->getPlayer($Is);
+    foreach($players as $player){
+      $p = $this->getServer()->getPlayer($player);
       if($p instanceof Player){
         $p->sendMessage($message);
       }
@@ -373,8 +373,8 @@ class EggWars extends PluginBase{
     $cfg = new Config($this->getDataFolder()."Arenas/$arena.yml", Config::YAML);
     $musaitTeam = array();
     foreach($this->ArenaTeams($arena) as $team){
-      foreach($players as $Is){
-        $p = $this->getServer()->getPlayer($Is);
+      foreach($players as $player){
+        $p = $this->getServer()->getPlayer($player);
         if($p instanceof Player){
           if($this->PlayerTeamColor($p) === $team){
             $teamNumber++;
