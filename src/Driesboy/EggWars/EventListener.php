@@ -401,6 +401,7 @@ class EventListener implements Listener{
               $main->ArenaMessage($arena, $p->getNameTag()." §ewas killed by ".$d->getNameTag());
             }
             $p->getInventory()->clearAll();
+            $p->getInventory()->sendContents($p);
           }
         }else{
           $e->setCancelled();
