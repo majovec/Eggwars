@@ -14,6 +14,8 @@ use pocketmine\math\AxisAlignedBB;
 
 class Game extends PluginTask{
 
+  public $minplayers = 2; //add this or on config
+  
   private $p;
   public function __construct($p){
     $this->p = $p;
@@ -29,7 +31,7 @@ class Game extends PluginTask{
         if($status === "Lobby"){
           $time = (int) $ac->get("StartTime");
           if($time > 0 || $time <= 0){
-            if(count($main->ArenaPlayer($arena)) >= $ac->get("Team")){
+            if(count($main->ArenaPlayer($arena)) >= $this->minplayers){
               $time--;
               $ac->set("StartTime", $time);
               $ac->save();
